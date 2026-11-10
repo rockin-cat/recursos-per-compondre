@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Recursos per compondre · Rockin</title>
+<meta name="description" content="Idees, cançons i exemples perquè les bandes de l'aula facin la seva música: temàtica, base, lletra, inici, escenari i final.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;700;800&family=Open+Sans:wght@400;600;700&display=swap">
+<style>
+/* Layout: una sola columna de lectura; els finals en targetes, cada una amb una tira de temps (4 + 4) que dibuixa com acaba */
+:root{
+  --bg:#f6f4ef; --card:#ffffff; --ink:#1f1e1c; --ink2:#55524c; --ink3:#86827a; --line:rgba(31,30,28,.12);
+  --amber:#fdbe10; --amber-ink:#1f1e1c; --sound:#1f1e1c; --hold:#e0a100; --voice:#d4547a; --crowd:#3c8d6e; --noise:#7a6f9c;
+  --display:"Rubik", "Arial Rounded MT Bold", system-ui, sans-serif;
+  --body:"Open Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#1a1916; --card:#25231f; --ink:#f2efe8; --ink2:#c9c4ba; --ink3:#9a958b; --line:rgba(242,239,232,.14);
+  --sound:#f2efe8; --hold:#fdbe10; --voice:#f07ea0; --crowd:#5fc19b; --noise:#a99cd6; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#1a1916; --card:#25231f; --ink:#f2efe8; --ink2:#c9c4ba; --ink3:#9a958b; --line:rgba(242,239,232,.14);
+  --sound:#f2efe8; --hold:#fdbe10; --voice:#f07ea0; --crowd:#5fc19b; --noise:#a99cd6; color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.6;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:0 48px}
+.wrap{max-width:860px;margin:0 auto}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px;border-radius:6px}
+
+.hero{padding-block:40px 24px;display:grid;gap:14px}
+.brand{font-family:var(--display);font-weight:800;letter-spacing:.06em;font-size:13px;text-transform:uppercase;color:var(--ink3)}
+.brand b{background:var(--amber);color:var(--amber-ink);padding:2px 7px;border-radius:5px;margin-right:6px}
+h1{font-size:clamp(34px,7vw,58px);font-weight:800;line-height:1.02;letter-spacing:-.01em}
+h1 span{display:inline-block;background:linear-gradient(transparent 62%, var(--amber) 62%);padding:0 4px}
+.lead{font-size:18px;color:var(--ink2);max-width:60ch;margin:0}
+
+.look{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;display:grid;gap:10px}
+.look h2{font-size:18px;font-weight:700}
+.qs{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:0}
+.qs li{border:1.5px solid var(--ink);border-radius:999px;padding:5px 12px;font-size:15px;font-weight:600}
+
+section{margin-top:40px;display:grid;gap:14px}
+section > h2{font-size:clamp(24px,4.5vw,32px);font-weight:800}
+section > p{margin:0;color:var(--ink2);max-width:62ch}
+
+.starts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.start{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.start h3{font-size:17px;font-weight:700;margin-bottom:4px}
+.start p{margin:0;color:var(--ink2);font-size:15.5px}
+
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13.5px;color:var(--ink2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+
+.ends{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.end{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:grid;gap:10px;align-content:start;min-width:0}
+.end h3{font-size:18px;font-weight:700}
+.end p{margin:0;color:var(--ink2);font-size:15.5px}
+.vids{display:flex;flex-wrap:wrap;gap:8px}
+.vids a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-weight:700;font-size:14.5px;background:var(--amber);color:var(--amber-ink);padding:6px 12px;border-radius:999px}
+.vids a:hover{filter:brightness(.95)}
+.vids a svg{width:14px;height:14px}
+.novid{font-size:14px;color:var(--ink3);font-style:italic}
+
+/* tira de temps: 4 temps del final de la roda + 4 del compàs següent */
+.strip{display:grid;grid-template-columns:repeat(4,1fr) 6px repeat(4,1fr);gap:4px;align-items:end;height:46px}
+.strip .bar{width:2px;background:var(--ink3);height:100%;justify-self:center}
+.b{position:relative;height:100%;display:flex;align-items:flex-end}
+.b i{display:block;width:100%;border-radius:4px}
+.b.s i{height:60%;background:var(--sound)}
+.b.x i{height:85%;background:var(--sound)}
+.b.h i{height:60%;background:var(--hold);border-radius:0}
+.b.h.first i{border-radius:4px 0 0 4px}.b.h.last i{border-radius:0 4px 4px 0}
+.b.v i{height:45%;background:var(--voice)}
+.b.c i{height:55%;background:var(--crowd)}
+.b.n i{height:70%;background:repeating-linear-gradient(90deg,var(--noise) 0 3px,transparent 3px 5px)}
+.b.o i{height:60%;border:2px dashed var(--sound);background:transparent}
+.b.f1 i{height:55%;background:var(--sound);opacity:.75}.b.f2 i{height:42%;background:var(--sound);opacity:.55}
+.b.f3 i{height:28%;background:var(--sound);opacity:.35}.b.f4 i{height:14%;background:var(--sound);opacity:.18}
+.b.r i{height:50%;background:var(--sound);opacity:.55}
+.b.e i{height:2px;background:var(--line)}
+.nums{display:grid;grid-template-columns:repeat(4,1fr) 6px repeat(4,1fr);gap:4px;font-size:11.5px;color:var(--ink3);text-align:center;font-variant-numeric:tabular-nums;margin-top:-4px}
+.sw{width:14px;height:10px;border-radius:3px;display:inline-block}
+
+.yours{margin-top:40px;background:var(--ink);color:var(--bg);border-radius:18px;padding:22px 22px;display:grid;gap:10px}
+.yours h2{font-size:clamp(22px,4vw,28px);font-weight:800}
+.yours ul{margin:0;padding-left:20px;display:grid;gap:4px}
+.yours p{margin:0;opacity:.85}
+.foot{margin-top:28px;font-size:13px;color:var(--ink3)}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+
+/* navegació per seccions */
+/* barra de navegació fixa a dalt, d'amplada completa */
+.topbar{position:sticky;top:0;z-index:10;background:var(--ink);color:var(--bg);
+  margin-left:calc(-1 * max(16px, env(safe-area-inset-left, 0px)));margin-right:calc(-1 * max(16px, env(safe-area-inset-right, 0px)));
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.topbar .in{max-width:860px;margin:0 auto;display:flex;align-items:center;gap:14px;min-height:54px}
+.topbar .logo{font-family:var(--display);font-weight:800;font-size:14px;letter-spacing:.06em;text-decoration:none;background:var(--amber);color:var(--amber-ink);padding:3px 8px;border-radius:5px;flex:none}
+.topbar nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+@media (max-width:860px){.topbar nav{-webkit-mask-image:linear-gradient(90deg,#000 85%,transparent);mask-image:linear-gradient(90deg,#000 85%,transparent);padding-right:28px}}
+body{margin:0}
+.topbar nav::-webkit-scrollbar{display:none}
+.topbar nav a{flex:none;text-decoration:none;font-weight:700;font-size:14.5px;padding:7px 12px;border-radius:999px;color:var(--bg);opacity:.78;white-space:nowrap}
+.topbar nav a:hover{opacity:1;background:rgba(127,127,127,.22)}
+.topbar nav a[aria-current="true"]{opacity:1;background:var(--amber);color:var(--amber-ink)}
+.topbar nav a span{font-variant-numeric:tabular-nums;opacity:.6;margin-right:5px}
+section{scroll-margin-top:70px}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+.part{margin-top:48px;padding-top:6px}
+.kicker{font-family:var(--display);font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:grid;gap:10px;align-content:start;min-width:0}
+.card h3{font-size:18px;font-weight:700}
+.card p{margin:0;color:var(--ink2);font-size:15.5px}
+.chords{display:flex;flex-wrap:wrap;gap:6px}
+.chords b{font-family:var(--display);font-size:18px;font-weight:800;background:var(--bg);border:1.5px solid var(--ink);border-radius:8px;padding:2px 10px;min-width:44px;text-align:center}
+.code{font-size:14px;color:var(--ink2)}
+.code span{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink)}
+.steps{counter-reset:st;list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.steps li{counter-increment:st;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px 14px 58px;position:relative}
+.steps li::before{content:counter(st);position:absolute;left:16px;top:13px;width:30px;height:30px;border-radius:50%;background:var(--amber);color:var(--amber-ink);font-family:var(--display);font-weight:800;display:grid;place-items:center}
+.steps b{display:block;font-family:var(--display);font-size:17px}
+.steps span{color:var(--ink2);font-size:15.5px}
+.example{border-left:4px solid var(--amber);background:var(--card);border-radius:0 14px 14px 0;padding:14px 18px}
+.example p{margin:0;color:var(--ink2)}
+.example q{font-weight:700;color:var(--ink);quotes:"«" "»"}
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.fig{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.fig b{font-family:var(--display);font-size:16px}
+.fig p{margin:2px 0 0;font-size:14.5px;color:var(--ink2)}
+.fig i{display:block;margin-top:6px;font-style:normal;font-weight:600;font-size:14.5px;color:var(--ink)}
+.yours + .part{margin-top:56px}
+.sub{font-size:20px;font-weight:800;margin-top:10px}
+.song{display:grid;gap:10px}
+.song .theme{font-size:15px;color:var(--ink2);margin:0}
+.song dl{margin:0;display:grid;gap:4px}
+.song dt{font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);margin-top:4px}
+.song dd{margin:0;font-size:15px;color:var(--ink2)}
+.song dd b{color:var(--ink)}
+.more{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:8px}
+.more a{display:flex;justify-content:space-between;gap:10px;align-items:center;text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+.more a b{display:block;font-size:15px}
+.more a span{display:block;font-size:13.5px;color:var(--ink2)}
+.more a svg{width:14px;height:14px;flex:none;color:var(--ink3)}
+</style>
+
+</head>
+<body>
+<div class="topbar">
+  <div class="in">
+    <a class="logo" href="#top">ROCKIN</a>
+    <nav aria-label="Seccions" id="nav">
+      <a href="#tema"><span>1</span>De què parlem</a><a href="#base"><span>2</span>La base</a><a href="#lletra"><span>3</span>La lletra</a><a href="#inici"><span>4</span>Com comença</a><a href="#escena"><span>5</span>A l'escenari</a><a href="#final"><span>6</span>Com acaba</a>
+    </nav>
+  </div>
+</div>
+<div class="wrap" id="top">
+  <header class="hero">
+    <div class="brand"><b>ROCKIN</b>Per a les bandes</div>
+    <h1>Recursos per <span>compondre</span></h1>
+    <p class="lead">Idees, cançons i exemples per fer la vostra música: de què parlar, com fer la base, com escriure la lletra, com començar, què fer a l'escenari i com acabar. Són punts de partida. La cançó és vostra.</p>
+  </header>
+
+
+  <section id="tema" class="part" aria-labelledby="h-tema">
+    <div class="kicker">1 · Temàtica</div>
+    <h2 id="h-tema">De què volem parlar?</h2>
+    <p>Una cançó pot parlar del que us passa, del que penseu o del que us preocupa. Escolteu com ho han fet altres persones, de maneres molt diferents, i penseu com ho diríeu vosaltres.</p>
+    <div class="cards" id="temes"></div>
+    <div class="look">
+      <h2>Mentre escolteu, pregunteu-vos…</h2>
+      <ul class="qs"><li>De què parla?</li><li>A qui ho diu?</li><li>Hi estem d'acord?</li><li>Quina frase es recorda?</li><li>Com ho diríem nosaltres?</li></ul>
+    </div>
+    <h3 class="sub">Més cançons per escoltar</h3>
+    <div class="more" id="more"></div>
+  </section>
+
+  <section id="base" class="part" aria-labelledby="h-base">
+    <div class="kicker">2 · La base</div>
+    <h2 id="h-base">Fem base</h2>
+    <p>Una base ajuda molt a trobar la lletra. Primer, poseu-vos d'acord en com voleu sonar: un rap, un reggae, un rock, una balada? Després, trieu una roda d'acords: la d'una cançó que ja sabeu tocar o que us agrada, o una d'inventada. Algunes per començar:</p>
+    <div class="cards" id="rodes"></div>
+    <p>Per trobar com es toquen: el codi de trasts a la guitarra i al baix, i el 4 + 3 (major) o el 3 + 4 (menor) al teclat. Ho teniu a la llibreta i als pòsters de l'aula.</p>
+  </section>
+
+  <section id="lletra" class="part" aria-labelledby="h-lletra">
+    <div class="kicker">3 · La lletra</div>
+    <h2 id="h-lletra">De la prosa d'idees a la lletra</h2>
+    <p>Escriure una lletra és posar paraules al que voleu dir. Demana temps i cura: primer us escolteu i escriviu lliurement, i després trieu, doneu forma i reescriviu.</p>
+    <h3 class="sub">Escolteu com ho han dit altres</h3>
+    <p>Abans d'escriure, escolteu cançons amb la lletra a la vista. Fixeu-vos en com diuen el que volen dir, i parleu-ne.</p>
+    <div class="cards" id="songs"></div>
+    <h3 class="sub">Ara, la vostra</h3>
+    <ol class="steps">
+      <li><b>Escolteu-vos</b><span>Abans d'escriure, parleu-ne: què en sabeu, què en penseu, què sentiu, què heu viscut?</span></li>
+      <li><b>Escriviu lliurement</b><span>Tot el que us ve al cap, sense jutjar-ho encara: frases, imatges, records, preguntes. Les rimes poden esperar.</span></li>
+      <li><b>Trieu i ordeneu</b><span>Llegiu-ho en veu alta i quedeu-vos el que diu millor el que voleu dir. La idea central anirà a la tornada; el que l'explica, a les estrofes.</span></li>
+      <li><b>Treballeu les paraules</b><span>Busqueu maneres de dir-ho que us representin i que sorprenguin: una imatge, una figura, el ritme de les paraules. Les rimes, si us ajuden.</span></li>
+      <li><b>Feu-la cantar</b><span>Proveu-la sobre la base: on respira, quines paraules cauen als temps forts, què canten els cors. Una pregunta-resposta o una paraula clau ajuden que arribi.</span></li>
+      <li><b>Reviseu-la</b><span>Diu el que volíeu dir? Us hi reconeixeu? Llegiu-la a una altra banda i pregunteu-li què li arriba. Una lletra es reescriu moltes vegades.</span></li>
+    </ol>
+    <h3 style="font-size:20px;font-weight:800;margin-top:10px">Per dir-ho d'una altra manera</h3>
+    <p>Partint d'una frase literal, «Fa molta calor», aquestes figures la transformen. Les trobareu a les cartes de recursos literaris, amb exemples de cançons reals.</p>
+    <div class="figs" id="figs"></div>
+  </section>
+
+  <section id="inici" class="part" aria-labelledby="h-comencar">
+    <div class="kicker">4 · L'inici</div>
+    <h2 id="h-comencar">Com comença</h2>
+    <p>Algunes maneres d'arrencar una cançó. Les podeu barrejar o inventar-ne de noves.</p>
+    <div class="cards" id="starts"></div>
+  </section>
+
+  <section id="escena" class="part" aria-labelledby="h-escena">
+    <div class="kicker">5 · L'escenari</div>
+    <h2 id="h-escena">A l'escenari</h2>
+    <p>Un directe no és només tocar la cançó: també és el que passa a l'escenari i el que voleu que arribi a qui us escolta. Proveu-ne alguns a l'assaig i quedeu-vos els que diguin el que voleu dir. Els vídeos s'obren al minut on passa.</p>
+    <div class="cards" id="escenics"></div>
+    <div class="look">
+      <h2>No us oblideu de…</h2>
+      <ul class="qs"><li>Mirar-vos quan hi ha una marca o un canvi</li><li>Si algú s'equivoca, la cançó continua</li><li>Assajar dempeus</li><li>Que tothom se senti</li></ul>
+    </div>
+  </section>
+
+  <section id="final" class="part" aria-labelledby="h-acabar">
+    <div class="kicker">6 · El final</div>
+    <h2 id="h-acabar">Com acaba</h2>
+    <p>Cada targeta té una tira amb els quatre últims temps de la roda i els quatre següents, per veure més o menys com sona el final. Els vídeos s'obren a YouTube.</p>
+    <div class="look">
+      <h2>Mentre mireu els vídeos, fixeu-vos en…</h2>
+      <ul class="qs"><li>Qui comença?</li><li>Com saben que s'acaba?</li><li>Qui fa el senyal?</li><li>On miren?</li><li>Què us fa sentir el final?</li></ul>
+    </div>
+    <div class="legend" aria-hidden="true">
+      <span><i class="sw" style="background:var(--sound)"></i>so</span>
+      <span><i class="sw" style="background:var(--hold)"></i>nota llarga</span>
+      <span><i class="sw" style="background:var(--voice)"></i>veu sola</span>
+      <span><i class="sw" style="background:var(--crowd)"></i>el públic</span>
+      <span><i class="sw" style="background:repeating-linear-gradient(90deg,var(--noise) 0 3px,transparent 3px 5px)"></i>soroll</span>
+      <span><i class="sw" style="border:2px dashed var(--sound)"></i>a l'aire</span>
+    </div>
+    <div class="ends" id="ends"></div>
+  </section>
+
+  <div class="yours">
+    <h2>I la vostra cançó?</h2>
+    <ul>
+      <li>De què parla? Què voleu que s'endugui qui l'escolti?</li>
+      <li>Com sona? Quina roda, quins patrons?</li>
+      <li>Com comença i com acaba? Qui fa els senyals?</li>
+    </ul>
+    <p>Apunteu-ho a la llibreta i assageu-ho. I si trobeu una cançó que us agrada i no és aquí, compartiu-la amb la classe.</p>
+  </div>
+
+  <p class="foot">Rockin · Materials CC BY-NC-SA 4.0</p>
+</div>
+
+<script>
+const YT = id => "https://www.youtube.com/watch?v=" + id;
+// s: so · x: cop final · h: nota llarga · v: veu sola · c: públic · n: soroll · o: a l'aire · f1-f4: fade · r: riff · e: silenci
+const ENDS = [
+  {t:"Chim pom", d:"Dos cops al final: el primer deixa la cançó en suspens i el segon la tanca.", p:"s s s x | x e e e", v:[["Roba Estesa","WKb7EjJ67QQ"]]},
+  {t:"Acabar abans del primer temps", d:"Toqueu fins al quart temps de la roda i, on tothom espera l'1, silenci.", p:"s s s x | e e e e", v:[["Zoo","SSA7MN0ie5Y"],["Adala i Tribade","0xWvjShuj1w"],["Sra. Tomasa","kysRnVKBjPI"]]},
+  {t:"Calderó", d:"L'última nota s'allarga tant com vulgueu, i es talla amb un senyal.", p:"s s s h | h h h e", v:[["Zoo","5ZsdhNdwYhE"],["El Kanka i Rozalén","MZJxpKB75JU"],["Arctic Monkeys i Dua Lipa","JNIK18PKrqY"]]},
+  {t:"Acabar a l'1 amb calderó", d:"Tothom arriba junt a l'1 i s'hi queda, amb una nota llarga.", p:"s s s s | h h h h", v:[]},
+  {t:"Deixar-ho a l'aire", d:"La cançó no acaba de tancar-se: queda com una pregunta.", p:"s s s s | o o e e", v:[["La Fúmiga","r9ISefU1StU"],["Harry Styles","s8MlHTI7bUE"],["Sia","YaEG2aWJnZ8"]]},
+  {t:"L'última frase a capella", d:"La música para i la veu diu l'última frase sola.", p:"s s s s | v v v e", v:[["Las Karamba","237I8ax9Dcg"]]},
+  {t:"Soroll i «tupaku»", d:"Un final desfet, amb soroll, i un cop sec per acabar.", p:"s s n n | n n x e", v:[["Billie Eilish","H_hgw-V-wBI"]]},
+  {t:"Silenci a l'1, final al 2", d:"On tothom espera l'1 hi ha silenci, i el cop final arriba al segon temps.", p:"s s s s | e x e e", v:[["Txarango","M9RkigzoP50"]]},
+  {t:"Fade out", d:"La música es va apagant de mica en mica fins que no se sent.", p:"s s s s | f1 f2 f3 f4", v:[["Jacob Collier","dXf1nUVdVuM"]]},
+  {t:"Que canti el públic", d:"La banda baixa o para, i la gent acaba la cançó cantant.", p:"s s s s | c c c c", v:[["Natalia Lafourcade","ABLT6hdgEek"]]},
+  {t:"Mantenir el riff i tancar a l'1", d:"El riff es repeteix fins al final i tothom tanca junt a l'1.", p:"r r r r | x e e e", v:[["Txarango","pg67AtFgJRM"]]}
+];
+const ext = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3h7v7M13 3 4 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+const strip = p => {
+  const all = p.replace("|"," ").trim().split(/\s+/);
+  const cell = (k,i) => {
+    let cls = k;
+    if (k==="h") cls = "h" + (all[i-1]!=="h" ? " first" : "") + (all[i+1]!=="h" ? " last" : "");
+    return `<div class="b ${cls}"><i></i></div>`;
+  };
+  const html = all.map(cell);
+  return `<div class="strip" aria-hidden="true">${html.slice(0,4).join("")}<span class="bar"></span>${html.slice(4).join("")}</div>
+    <div class="nums" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span></span><span>1</span><span>2</span><span>3</span><span>4</span></div>`;
+};
+const vids = v => v.length ? `<div class="vids">${v.map(([n,id,t])=>`<a href="${YT(id)}${t?"&t="+t+"s":""}" target="_blank" rel="noopener">${n}${t?" · "+Math.floor(t/60)+":"+String(t%60).padStart(2,"0"):""}${ext}</a>`).join("")}</div>` : "";
+const TEMES = [
+  {t:"Una cançó que en respon una altra", d:"Una cançó diu el que pensa algú, i una altra li contesta des de l'altra banda.", v:[["When I Was Your Man · Bruno Mars","ekzHIouo8Q4"],["Flowers · Miley Cyrus","G7KNmW9a75Y"]]},
+  {t:"Una cançó de protesta", d:"Per denunciar una injustícia o parlar d'un problema que ens toca.", v:[["Corbelles · Zoo","j1Jd_ywWDn4"],["Cant de lluita · Roba Estesa","OL_u9aI2mbA"]]},
+  {t:"Un himne", d:"Per parlar de qui som, de l'amistat, de la força del grup.", v:[["Coti x Coti · The Tyets","dAeCK5-mTjM"],["Roar · Katy Perry","CevxZvSJLk8"]]},
+  {t:"Una temàtica a l'atzar", d:"Surt un tema que no havíeu triat. Com el miraríeu des d'on sou vosaltres?", v:[]}
+];
+document.getElementById("temes").innerHTML = TEMES.map(e=>`<article class="card"><h3>${e.t}</h3><p>${e.d}</p>${vids(e.v)}</article>`).join("");
+const RODES = [
+  {t:"La roda de «De Bonesh»", c:["G","D","E-","C"], k:"3 · 10 · 12 · 8", d:"Surt a moltíssimes cançons.", v:[["De Bonesh · Oques Grasses","lpTGUFuEOQw"]]},
+  {t:"Els mateixos, en un altre ordre", c:["E-","C","G","D"], k:"12 · 8 · 3 · 10", d:"La de «Zombie». Començar pel menor la fa sonar diferent.", v:[["Zombie · The Cranberries","6Ejga4kJUts"]]},
+  {t:"La roda d'«Urras»", c:["A-","D-","E-"], k:"5 · 10 · 12", d:"Tres acords menors.", v:[["Urras · Adala","DC2S9hBMqFQ"]]},
+  {t:"Les mateixes notes, en major", c:["A","D","E"], k:"5 · 10 · 12", d:"Com «Urras», però en major. Només canvia una nota de cada acord.", v:[["Blitzkrieg Bop · Ramones","268C3N2dDYk"]]}
+];
+document.getElementById("rodes").innerHTML = RODES.map(e=>`<article class="card"><h3>${e.t}</h3><div class="chords">${e.c.map(x=>`<b>${x}</b>`).join("")}</div><div class="code">Codi de trasts: <span>${e.k}</span></div><p>${e.d}</p>${vids(e.v)}</article>`).join("");
+const MORE = [
+  ["Hasta la raíz","Natalia Lafourcade","Les arrels, el lloc d'on venim","IKmPci5VXz0"],
+  ["Dime, ramo verde","Rodrigo Cuevas","Ser qui ets, i la tradició","EO13ZEIt-us"],
+  ["Born This Way","Lady Gaga","Acceptar-se tal com s'és","wV1FrqwZyKw"],
+  ["Fix You","Coldplay","Ser-hi quan algú ho passa malament","k4V3Mo61fJM"],
+  ["Believer","Imagine Dragons","Fer força del que costa","7wtfhZwyrcc"],
+  ["Human","The Killers","Què ens fa humans","RIZdjT1472Y"],
+  ["Ja no soc així","Adala i Ayryn","Desamor, i el desencís amb el sistema","8JA5LLNGQGA"],
+  ["Obriu les portes","Txarango","Acollir qui fuig de la guerra","HiExv8a5HGE"]
+];
+document.getElementById("more").innerHTML = MORE.map(([t,a,d,id])=>`<a href="${YT(id)}" target="_blank" rel="noopener"><span><b>${t} · ${a}</b><span>${d}</span></span>${ext}</a>`).join("");
+const SONGS = [
+  {t:"De Bonesh", a:"Oques Grasses", id:"lpTGUFuEOQw", d:"Donar-ho tot, caure i tornar-se a aixecar.",
+   f:[["Paral·lelisme","dues frases amb la mateixa estructura, una al costat de l'altra"],["Metàfora","«que ploguin pedres», per parlar de les dificultats"],["Interrogació retòrica","preguntes que es fa a si mateixa, sense esperar resposta"]],
+   q:["Heu viscut alguna vegada donar-ho tot i no aconseguir-ho?","Quan diríeu que «plouen pedres»?","Algú us diu qui heu de ser?"]},
+  {t:"Urras", a:"Adala", id:"DC2S9hBMqFQ", d:"La pressa i la competició. Urras és un planeta de la novel·la «Els desposseïts», d'Ursula K. Le Guin.",
+   f:[["Metàfora","un rellotge vell que, per dins, els fa córrer"],["Antítesi","tenir set enmig de l'abundància"],["Hipèrbole","somiar tant en els diners que no poden dormir"]],
+   q:["Què vol dir per a vosaltres la «cursa social»? Cal córrer-hi?","Què us fa sentir a contrarellotge?","Quins valors són l'eix del vostre món?"]},
+  {t:"Obriu les portes", a:"Txarango", id:"HiExv8a5HGE", d:"Una cançó de festa per acollir les persones que fugen de la guerra.",
+   f:[["Metàfora","la música com el batec dels pobles"],["Personificació","la terra que plora"],["Repetició","una frase que torna i torna per dir que volen canviar el rumb"]],
+   q:["Quines portes coneixeu, entre nosaltres i els altres?","Com és una persona que construeix més i destrueix menys?"]}
+];
+document.getElementById("songs").innerHTML = SONGS.map(e=>`<article class="card song"><h3>${e.t} · ${e.a}</h3><p class="theme">${e.d}</p><dl><dt>Fixeu-vos en</dt>${e.f.map(([n,x])=>`<dd><b>${n}:</b> ${x}</dd>`).join("")}<dt>Per parlar-ne</dt>${e.q.map(x=>`<dd>${x}</dd>`).join("")}</dl>${vids([["Escolta-la",e.id]])}</article>`).join("");
+const FIGS = [
+  ["Metàfora","Anomenar el que volem dir amb el nom d'una altra realitat que s'hi assembla.","L'aula és un forn."],
+  ["Símil","Comparar dues realitats amb un «com».","Suem com gelats al sol."],
+  ["Personificació","Donar qualitats humanes a un objecte, un animal o una idea.","El sol ens persegueix pel pati."],
+  ["Hipèrbole","Exagerar.","L'aula bull a cent graus."],
+  ["Anàfora","Repetir les mateixes paraules a l'inici de cada frase.","Calor al matí, calor a la nit, calor al llit."],
+  ["Paral·lelisme","Repetir la mateixa estructura en frases seguides.","El sol ens crema la pell, l'aire ens crema la veu."],
+  ["Antítesi","Posar junts dos contraris.","Tanta llum i tan poques ganes."],
+  ["Interrogació retòrica","Fer una pregunta que no espera resposta.","Qui pot pensar amb aquesta calor?"],
+  ["Al·literació","Repetir un mateix so.","Sol i suor, sense sortida."],
+  ["Hipèrbaton","Canviar l'ordre habitual de les paraules.","Plena de calor, l'aula està."],
+  ["Asíndeton","Enumerar sense conjuncions, només amb pauses.","Ventiladors, gelats, ombres, piscines."]
+];
+document.getElementById("figs").innerHTML = FIGS.map(([n,d,e])=>`<div class="fig"><b>${n}</b><p>${d}</p><i>«${e}»</i></div>`).join("");
+const ESCENA = [
+  {t:"Marques", d:"Tota la banda fa un cop alhora, en un moment que tothom pugui seguir. Cal mirar-se per fer-lo junts.", v:[["Beggin' · Måneskin","Qdkt3I5-FG4",37]]},
+  {t:"Focus en un instrument", d:"Quan un instrument queda sol, la resta de la banda el mira o li assenyala, o qui toca s'avança a l'escenari.", v:[]},
+  {t:"Trobades", d:"Dues persones es creuen a l'escenari i es troben mentre toquen, fins on arribi el cable. Per exemple, quan les guitarres queden soles.", v:[]},
+  {t:"Fer cantar el públic", d:"La banda baixa o para i convida la gent a cantar la tornada.", v:[["Harry Styles","s8MlHTI7bUE",52]]},
+  {t:"Saltar o ballar junts", d:"En un moment de la cançó, tota la banda salta o fa un moviment junta.", v:[["Locked Out of Heaven · Bruno Mars","13oXf68zRcM",71]]},
+  {t:"Obrir la tornada amb veu i bombo", d:"La tornada comença només amb la veu i el bombo a negres, i després entra tothom.", v:[["Locked Out of Heaven · Bruno Mars","13oXf68zRcM",81]]},
+  {t:"Aturada", d:"Tothom para alhora dins de la cançó. El silenci també és música.", v:[]},
+  {t:"Quedar-se penjat i pujada", d:"Repetir una frase per preparar la pujada abans de tornar a la tornada.", v:[]},
+  {t:"A cappella", d:"Deixeu de tocar i canteu.", v:[]},
+  {t:"Diàleg", d:"Dos instruments es reparteixen la roda: primer un, després l'altre.", v:[]},
+  {t:"De fluix a fort", d:"La segona volta d'una roda, cada vegada més fort.", v:[]},
+  {t:"Ritme al cos", d:"Marcar el pols o un canvi amb un moviment de tota la banda.", v:[]}
+];
+document.getElementById("escenics").innerHTML = ESCENA.map(e=>`<article class="card"><h3>${e.t}</h3><p>${e.d}</p>${vids(e.v)}</article>`).join("");
+const STARTS = [
+  {t:"Comptar l'entrada", d:"Algú diu «un, dos, tres, quatre» i tothom entra alhora. Decidiu qui la dona.", v:[]},
+  {t:"Compte amb les baquetes", d:"Després d'una introducció, la bateria compta picant les baquetes i tota la banda entra al primer temps.", v:[["En la tormenta · Iseo & Dodosound","ArjzURiPFn8"]]},
+  {t:"Entrades esglaonades", d:"Comença un instrument sol, la bateria o un riff, i la resta hi entra de mica en mica. La bateria pot esperar a la segona volta.", v:[]},
+  {t:"Un so que no és un instrument", d:"Abans que entri la banda, sona un efecte: un tic-tac, un timbre, una veu gravada. El podeu gravar amb el mòbil o fer-lo amb la boca.", v:[["De Bonesh · Oques Grasses","lpTGUFuEOQw"]]},
+  {t:"Començar a cappella", d:"La primera frase, només amb la veu. Després entra tota la banda junta.", v:[["En la tormenta · Iseo & Dodosound","ArjzURiPFn8"]]},
+  {t:"La veu entre els acords", d:"El teclat toca un acord i espera; la veu canta en aquell espai.", v:[["Diamonds · Rihanna","lWA2pjMjpBs"]]},
+  {t:"Un riff que es repeteix", d:"Una melodia curta que pregunta i una altra que respon, dues vegades, abans que entri la veu.", v:[["Urras · Adala","DC2S9hBMqFQ"]]},
+  {t:"Començar per la tornada", d:"Només amb la veu o amb un instrument, abans d'entrar tots.", v:[]}
+];
+document.getElementById("starts").innerHTML = STARTS.map(e=>`<article class="card"><h3>${e.t}</h3><p>${e.d}</p>${vids(e.v)}</article>`).join("");
+document.getElementById("ends").innerHTML = ENDS.map(e=>`<article class="end">
+  <h3>${e.t}</h3>
+  ${strip(e.p)}
+  <p>${e.d}</p>
+  ${e.v.length ? `<div class="vids">${e.v.map(([n,id])=>`<a href="${YT(id)}" target="_blank" rel="noopener">${n}${ext}</a>`).join("")}</div>` : `<span class="novid">Encara sense vídeo d'exemple. En coneixeu algun?</span>`}
+</article>`).join("");
+
+// marca la secció on som a la barra de navegació
+const links=[...document.querySelectorAll('#nav a')];
+const setCur=id=>links.forEach(a=>{const on=a.getAttribute('href')==='#'+id;a.setAttribute('aria-current',on?'true':'false');if(on){const n=a.parentNode;n.scrollTo({left:a.offsetLeft-n.clientWidth/2+a.offsetWidth/2,behavior:'smooth'});};});
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)setCur(e.target.id);});},{rootMargin:'-80px 0px -60% 0px'});
+document.querySelectorAll('section.part').forEach(s=>io.observe(s));
+</script>
+
+</body>
+</html>
