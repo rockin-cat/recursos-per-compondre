@@ -16,12 +16,6 @@
   --display:"Rubik", "Arial Rounded MT Bold", system-ui, sans-serif;
   --body:"Open Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
-@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
-  --bg:#1a1916; --card:#25231f; --ink:#f2efe8; --ink2:#c9c4ba; --ink3:#9a958b; --line:rgba(242,239,232,.14);
-  --sound:#f2efe8; --hold:#fdbe10; --voice:#f07ea0; --crowd:#5fc19b; --noise:#a99cd6; color-scheme:dark }}
-:root[data-theme="dark"]{
-  --bg:#1a1916; --card:#25231f; --ink:#f2efe8; --ink2:#c9c4ba; --ink3:#9a958b; --line:rgba(242,239,232,.14);
-  --sound:#f2efe8; --hold:#fdbe10; --voice:#f07ea0; --crowd:#5fc19b; --noise:#a99cd6; color-scheme:dark }
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.6;
   padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:0 48px}
@@ -102,9 +96,9 @@ section > p{margin:0;color:var(--ink2);max-width:62ch}
 @media (max-width:860px){.topbar nav{-webkit-mask-image:linear-gradient(90deg,#000 85%,transparent);mask-image:linear-gradient(90deg,#000 85%,transparent);padding-right:28px}}
 body{margin:0}
 .topbar nav::-webkit-scrollbar{display:none}
-.topbar nav a{flex:none;text-decoration:none;font-weight:700;font-size:14.5px;padding:7px 12px;border-radius:999px;color:var(--bg);opacity:.78;white-space:nowrap}
-.topbar nav a:hover{opacity:1;background:rgba(127,127,127,.22)}
-.topbar nav a[aria-current="true"]{opacity:1;background:var(--amber);color:var(--amber-ink)}
+.topbar nav a{flex:none;text-decoration:none;font-weight:700;font-size:14.5px;padding:7px 12px;border-radius:999px;color:var(--rk-tinta);opacity:.8;white-space:nowrap}
+.topbar nav a:hover{opacity:1;background:rgba(0,0,0,.08)}
+.topbar nav a[aria-current="true"]{opacity:1;background:var(--rk-tinta);color:#fff}
 .topbar nav a span{font-variant-numeric:tabular-nums;opacity:.6;margin-right:5px}
 section{scroll-margin-top:70px}
 html{scroll-behavior:smooth}
@@ -147,15 +141,19 @@ html{scroll-behavior:smooth}
 .more a svg{width:14px;height:14px;flex:none;color:var(--ink3)}
 </style>
 
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap">
+<link rel="stylesheet" href="/marca/capcalera.css">
 </head>
 <body>
-<div class="topbar">
-  <div class="in">
-    <a class="logo" href="#top">ROCKIN</a>
-    <nav aria-label="Seccions" id="nav">
+<div class="topbar rk-cap rk-amb-controls">
+  <div class="rk-marca">
+    <a class="rk-totes" href="/" title="Totes les eines Rockin"><img class="rk-logo" src="/marca/rockin-logo-fosc.png" alt="Rockin" width="382" height="72"></a>
+    <span class="rk-sep" aria-hidden="true"></span>
+    <a class="rk-eina" href="#top">Recursos per compondre</a>
+  </div>
+  <nav aria-label="Seccions" id="nav">
       <a href="#tema"><span>1</span>De què parlem</a><a href="#base"><span>2</span>La base</a><a href="#lletra"><span>3</span>La lletra</a><a href="#inici"><span>4</span>Com comença</a><a href="#escena"><span>5</span>A l'escenari</a><a href="#final"><span>6</span>Com acaba</a>
     </nav>
-  </div>
 </div>
 <div class="wrap" id="top">
   <header class="hero">
